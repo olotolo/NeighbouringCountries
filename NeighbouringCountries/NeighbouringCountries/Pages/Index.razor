@@ -2,8 +2,62 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Country Guesser</h1><br/>
+<h2 @bind="GivenCountry"></h2>
+<input id="countryInput" @bind="ValidateCountry" @bind:event="oninput"  placeholder="Type Bordering Countrys here"/>
 
-Welcome to your new app.
+@code {
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    private string PlayerInputString { get; set; } = string.Empty;
+
+    public List<Country> Countrys = new List<Country>
+    {
+        new Country("Germany", new List<string>{"Dänemark", "Polen", "Tschechien", "Österreich", "Schweiz", "Frankreich", "Luxemburg", "Belgien", "Niederlande" } ),
+        new Country("Germany", new List<string>{"Dänemark", "Polen", "Tschechien", "Österreich", "Schweiz", "Frankreich", "Luxemburg", "Belgien", "Niederlande" } ),
+    };
+
+
+
+    private Country GivenCountry = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("YUP");
+        GivenCountry = Countrys[0];
+    }
+
+    private string ValidateCountry
+    {
+        get { return PlayerInputString; }
+        set
+        {
+            PlayerInputString = value;
+
+            Check();
+        }
+    }
+
+    private void Check()
+    {
+        foreach(String s in GivenCountry.NeighbouringCountries)
+        {
+            if(PlayerInputString == s)
+            {
+                PlayerInputString = String.Empty;
+            }
+        }
+
+        if(PlayerInputString == "")
+        {
+        
+        }
+        if(PlayerInputString == "Germany")
+        {
+            PlayerInputString = string.Empty;
+        }
+    }
+
+    
+}
+

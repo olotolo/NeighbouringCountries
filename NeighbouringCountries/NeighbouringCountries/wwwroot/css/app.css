@@ -62,3 +62,16 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+
+#countryInput {
+    width: 500px;
+    height: 50px;
+    border: 2px solid black;
+    border-color: blue;
+    font-size:30px;
+    margin: 0 auto;
+    display:block;
+    
+
+}
