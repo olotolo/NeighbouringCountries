@@ -2,31 +2,39 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Country Guesser</h1><br/>
-<h2 @bind="GivenCountry"></h2>
+<h1 class="textCenter">Country Guesser</h1><br/>
+<h2 class="textCenter">@GivenCountry.GivenCountry</h2>
+
 <input id="countryInput" @bind="ValidateCountry" @bind:event="oninput"  placeholder="Type Bordering Countrys here"/>
+<h2 class="textCenter">Remaining: @NeighbourCountriesRemainingCount </h2>
+<h3 class="textCenter" style="color:green;">@CorrectGuesses</h3>
 
 @code {
+    //Inputbox
+    private string? PlayerInputString { get; set; }
 
-    private string PlayerInputString { get; set; } = string.Empty;
-
-    public List<Country> Countrys = new List<Country>
+    //List of all Countrys and their Neighbours
+    private static List<Country> Countrys = new List<Country>
     {
-        new Country("Germany", new List<string>{"Dänemark", "Polen", "Tschechien", "Österreich", "Schweiz", "Frankreich", "Luxemburg", "Belgien", "Niederlande" } ),
-        new Country("Germany", new List<string>{"Dänemark", "Polen", "Tschechien", "Österreich", "Schweiz", "Frankreich", "Luxemburg", "Belgien", "Niederlande" } ),
+        new Country("Deutschland", new List<string>{"Dänemark", "Polen", "Tschechien", "Österreich", "Schweiz", "Frankreich", "Luxemburg", "Belgien", "Niederlande" } ),
+        new Country("Deutschland", new List<string>{"Dänemark", "Polen", "Tschechien", "Österreich", "Schweiz", "Frankreich", "Luxemburg", "Belgien", "Niederlande" } ),
     };
 
 
+    // Selects a Random Country from the Countrys List
+    private static Random rnd = new Random();
+    private static Country GivenCountry = Countrys[rnd.Next(Countrys.Count)];
+    private static List<string> NeighbourCountriesRemaining = GivenCountry.NeighbouringCountries;
+    private static int NeighbourCountriesRemainingCount = NeighbourCountriesRemaining.Count;
+    private static string CorrectGuesses = "";
 
-    private Country GivenCountry = null;
-
-
+    // Called when Page is loaded
     protected override async Task OnInitializedAsync()
     {
-        Console.WriteLine("YUP");
-        GivenCountry = Countrys[0];
+        
     }
 
+    // Called each time the user Types into the input box
     private string ValidateCountry
     {
         get { return PlayerInputString; }
@@ -38,23 +46,22 @@
         }
     }
 
+    // Check if the Country is contained in the Neighbour list
     private void Check()
     {
-        foreach(String s in GivenCountry.NeighbouringCountries)
+        for (int i = 0; i < NeighbourCountriesRemaining.Count; i++)
         {
-            if(PlayerInputString == s)
+            if(PlayerInputString == NeighbourCountriesRemaining[i])
             {
+                CorrectGuesses = CorrectGuesses + NeighbourCountriesRemaining[i] + ", ";
                 PlayerInputString = String.Empty;
+                NeighbourCountriesRemainingCount--;
+                NeighbourCountriesRemaining.RemoveAt(i);
+                if(NeighbourCountriesRemainingCount == 0)
+                {
+                    Console.WriteLine("All Countries have been guessed!");
+                }
             }
-        }
-
-        if(PlayerInputString == "")
-        {
-        
-        }
-        if(PlayerInputString == "Germany")
-        {
-            PlayerInputString = string.Empty;
         }
     }
 
