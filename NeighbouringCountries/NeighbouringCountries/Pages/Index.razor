@@ -16,22 +16,31 @@
     //List of all Countrys and their Neighbours
     private static List<Country> Countrys = new List<Country>
     {
-        new Country("Deutschland", new List<string>{"Dänemark", "Polen", "Tschechien", "Österreich", "Schweiz", "Frankreich", "Luxemburg", "Belgien", "Niederlande" } ),
-        new Country("Deutschland", new List<string>{"Dänemark", "Polen", "Tschechien", "Österreich", "Schweiz", "Frankreich", "Luxemburg", "Belgien", "Niederlande" } ),
+        //new Country("Deutschland", new List<string>{"Dänemark", "Polen", "Tschechien", "Österreich", "Schweiz", "Frankreich", "Luxemburg", "Belgien", "Niederlande" }),
+        new Country("Norwegen", new List<string>{"Schweden", "Finnland", "Russland"}),
+        new Country("Schweden", new List<string>{"Norwegen", "Finnland"}),
+        new Country("Finnland", new List<string>{"Norwegen", "Schweden", "Russland"}),
+
+
+
+        /*
+        new Country("Norwegen", new List<string>{}),
+        */
     };
 
 
     // Selects a Random Country from the Countrys List
     private static Random rnd = new Random();
-    private static Country GivenCountry = Countrys[rnd.Next(Countrys.Count)];
+    private static int randomNumber = rnd.Next(Countrys.Count);
+    private static Country GivenCountry = new Country(Countrys[randomNumber].GivenCountry, new List<string>(Countrys[randomNumber].NeighbouringCountries));
     private static List<string> NeighbourCountriesRemaining = GivenCountry.NeighbouringCountries;
     private static int NeighbourCountriesRemainingCount = NeighbourCountriesRemaining.Count;
-    private static string CorrectGuesses = "";
+    private static string CorrectGuesses = String.Empty;
+
 
     // Called when Page is loaded
     protected override async Task OnInitializedAsync()
     {
-        
     }
 
     // Called each time the user Types into the input box
@@ -51,7 +60,7 @@
     {
         for (int i = 0; i < NeighbourCountriesRemaining.Count; i++)
         {
-            if(PlayerInputString == NeighbourCountriesRemaining[i])
+            if(string.Equals(PlayerInputString, NeighbourCountriesRemaining[i], StringComparison.OrdinalIgnoreCase))
             {
                 CorrectGuesses = CorrectGuesses + NeighbourCountriesRemaining[i] + ", ";
                 PlayerInputString = String.Empty;
@@ -60,6 +69,18 @@
                 if(NeighbourCountriesRemainingCount == 0)
                 {
                     Console.WriteLine("All Countries have been guessed!");
+
+                    int newRandomNumber = rnd.Next(Countrys.Count);
+                    while(randomNumber == newRandomNumber)
+                    {
+                        newRandomNumber = rnd.Next(Countrys.Count);
+                    }
+                    randomNumber = newRandomNumber;
+
+                    GivenCountry = new Country(Countrys[randomNumber].GivenCountry, new List<string>(Countrys[randomNumber].NeighbouringCountries));
+                    NeighbourCountriesRemaining = GivenCountry.NeighbouringCountries;
+                    NeighbourCountriesRemainingCount = NeighbourCountriesRemaining.Count;
+                    CorrectGuesses = String.Empty;
                 }
             }
         }
