@@ -2,62 +2,101 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Country Guesser</h1><br/>
-<h2 @bind="GivenCountry"></h2>
+<h1 class="textCenter">Country Guesser</h1><br/>
+<h2 class="textCenter">@GivenCountry.GivenCountry</h2>
+
 <input id="countryInput" @bind="ValidateCountry" @bind:event="oninput"  placeholder="Type Bordering Countrys here"/>
+<h2 class="textCenter">Remaining: @NeighbourCountriesRemainingCount </h2>
+<h3 class="textCenter" style="color:green;">@CorrectGuesses</h3>
+
+<button @onclick="CreateNewCountry">New Country</button>
+<button @onclick="ShowSolution">Solution</button><br/>
+<h3 id="Solution">@BorderingCountriesSolution</h3>
+
 
 @code {
+    //Inputbox
+    private string? PlayerInputString { get; set; }
+    private string? BorderingCountriesSolution;
 
-    private string PlayerInputString { get; set; } = string.Empty;
-
-    public List<Country> Countrys = new List<Country>
-    {
-        new Country("Germany", new List<string>{"Dänemark", "Polen", "Tschechien", "Österreich", "Schweiz", "Frankreich", "Luxemburg", "Belgien", "Niederlande" } ),
-        new Country("Germany", new List<string>{"Dänemark", "Polen", "Tschechien", "Österreich", "Schweiz", "Frankreich", "Luxemburg", "Belgien", "Niederlande" } ),
-    };
-
+    //List of all Countrys and their Neighbours
+    private static AllCountrysList allCountryList = new AllCountrysList();
+    private static List<Country> Countrys = allCountryList.Countrys;
 
 
-    private Country GivenCountry = null;
 
+    // Selects a Random Country from the Countrys List
+    private static Random rnd = new Random();
+    private static int randomNumber;
+    private static Country GivenCountry;
+    private static List<string> NeighbourCountriesRemaining;
+    private static int NeighbourCountriesRemainingCount;
 
+    private static string CorrectGuesses = String.Empty;
+
+    // Called when Page is loaded
     protected override async Task OnInitializedAsync()
     {
-        Console.WriteLine("YUP");
-        GivenCountry = Countrys[0];
+        CreateNewCountry();
     }
 
+    // Called each time the user Types into the input box
     private string ValidateCountry
     {
         get { return PlayerInputString; }
         set
         {
             PlayerInputString = value;
-
             Check();
         }
     }
 
+    // Check if the Country is contained in the Neighbour list
     private void Check()
     {
-        foreach(String s in GivenCountry.NeighbouringCountries)
+        for (int i = 0; i < NeighbourCountriesRemaining.Count; i++)
         {
-            if(PlayerInputString == s)
+            if(string.Equals(PlayerInputString, NeighbourCountriesRemaining[i], StringComparison.OrdinalIgnoreCase))
             {
+                CorrectGuesses = CorrectGuesses + NeighbourCountriesRemaining[i] + ", ";
                 PlayerInputString = String.Empty;
+                NeighbourCountriesRemainingCount--;
+                NeighbourCountriesRemaining.RemoveAt(i);
+                // When the Player has guessed all Countrys a new one will be given
+                if(NeighbourCountriesRemainingCount == 0)
+                {
+                    Console.WriteLine("All Countries have been guessed!");
+                    CreateNewCountry();
+                }
             }
-        }
-
-        if(PlayerInputString == "")
-        {
-        
-        }
-        if(PlayerInputString == "Germany")
-        {
-            PlayerInputString = string.Empty;
         }
     }
 
-    
+    private void CreateNewCountry()
+    {
+        BorderingCountriesSolution = String.Empty;
+        //Make sure that the same Country is not chosen twice in a row
+        int newRandomNumber = rnd.Next(Countrys.Count);
+        while(randomNumber == newRandomNumber)
+        {
+            newRandomNumber = rnd.Next(Countrys.Count);
+        }
+        randomNumber = newRandomNumber;
+
+        GivenCountry = new Country(Countrys[randomNumber].GivenCountry, new List<string>(Countrys[randomNumber].NeighbouringCountries));
+        NeighbourCountriesRemaining = GivenCountry.NeighbouringCountries;
+        NeighbourCountriesRemainingCount = NeighbourCountriesRemaining.Count;
+        CorrectGuesses = String.Empty;
+    }
+
+    private void ShowSolution()
+    {
+        BorderingCountriesSolution = String.Empty;
+        for(int i = 0; i < GivenCountry.NeighbouringCountries.Count; i++)
+        {
+            BorderingCountriesSolution += GivenCountry.NeighbouringCountries[i] + ", ";
+        }
+    }
+
 }
 
