@@ -7,7 +7,7 @@
 
 <input id="countryInput" @bind="ValidateCountry" @bind:event="oninput"  placeholder="Type Bordering Countrys here"/>
 <h2 class="textCenter">Remaining: @NeighbourCountriesRemainingCount </h2>
-<h3 class="textCenter" style="color:green;">@CorrectGuesses</h3>
+<h3 class="textCenter">Guessed: </h3><h3 class="textCenter" style="color:green;">@CorrectGuesses</h3>
 
 <button @onclick="CreateNewCountry">New Country</button>
 <button @onclick="ShowSolution">Solution</button><br/>
@@ -21,7 +21,6 @@
 
     //List of all Countrys and their Neighbours
     private static AllCountrysList allCountryList = new AllCountrysList();
-    private static List<Country> Countrys = allCountryList.Countrys;
 
 
 
@@ -76,14 +75,17 @@
     {
         BorderingCountriesSolution = String.Empty;
         //Make sure that the same Country is not chosen twice in a row
-        int newRandomNumber = rnd.Next(Countrys.Count);
-        while(randomNumber == newRandomNumber)
+        rnd = new Random();
+        int newRandomNumber = rnd.Next(allCountryList.countryBordersGerman.Count);
+        while (randomNumber == newRandomNumber)
         {
-            newRandomNumber = rnd.Next(Countrys.Count);
+            newRandomNumber = rnd.Next(allCountryList.countryBordersGerman.Count);
         }
         randomNumber = newRandomNumber;
 
-        GivenCountry = new Country(Countrys[randomNumber].GivenCountry, new List<string>(Countrys[randomNumber].NeighbouringCountries));
+        var randomEntry = allCountryList.countryBordersGerman.ElementAt(randomNumber);
+
+        GivenCountry = new Country(randomEntry.Key, randomEntry.Value);
         NeighbourCountriesRemaining = GivenCountry.NeighbouringCountries;
         NeighbourCountriesRemainingCount = NeighbourCountriesRemaining.Count;
         CorrectGuesses = String.Empty;
@@ -91,7 +93,6 @@
 
     private void ShowSolution()
     {
-        BorderingCountriesSolution = String.Empty;
         for(int i = 0; i < GivenCountry.NeighbouringCountries.Count; i++)
         {
             BorderingCountriesSolution += GivenCountry.NeighbouringCountries[i] + ", ";
