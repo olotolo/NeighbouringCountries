@@ -165,7 +165,6 @@
         { "Ruanda", new List<string>() { "Uganda", "Tansania", "Burundi", "Kongo" } },
         { "Sambia", new List<string>() { "Demokratische Republik Kongo", "Tansania", "Malawi", "Mosambik, Simbabwe, Botswana, Namibia" } },
         { "Senegal", new List<string>() { "Mauretanien", "Mali", "Guinea", "Guinea-Bissau", "Gambia" } },
-
         { "Sierra Leone", new List<string>() { "Guinea", "Liberia" } },
         { "Simbabwe", new List<string>() { "Sambia", "Mosambik", "Südafrika, Botswana, Namibia" } },
         { "Somalia", new List<string>() { "Dschibuti", "Äthiopien", "Kenia" } },
