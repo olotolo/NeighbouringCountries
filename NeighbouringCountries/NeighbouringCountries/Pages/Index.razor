@@ -81,12 +81,17 @@
         {
             newRandomNumber = rnd.Next(allCountryList.countryBordersGerman.Count);
         }
+
+        // Workaround, currently creates new class instance because it always passes references not clones and deletes entries...
+        allCountryList = new AllCountrysList();
+
+
         randomNumber = newRandomNumber;
+        var copy = new KeyValuePair<string, List<string>>(allCountryList.countryBordersGerman.ElementAt(randomNumber).Key, allCountryList.countryBordersGerman.ElementAt(randomNumber).Value);
 
-        var randomEntry = allCountryList.countryBordersGerman.ElementAt(randomNumber);
 
-        GivenCountry = new Country(randomEntry.Key, randomEntry.Value);
-        NeighbourCountriesRemaining = GivenCountry.NeighbouringCountries;
+        GivenCountry = new Country(allCountryList.countryBordersGerman.ElementAt(randomNumber).Key, allCountryList.countryBordersGerman.ElementAt(randomNumber).Value);
+        NeighbourCountriesRemaining = copy.Value;
         NeighbourCountriesRemainingCount = NeighbourCountriesRemaining.Count;
         CorrectGuesses = String.Empty;
     }
