@@ -65,7 +65,7 @@ a, .btn-link {
 
 
 #countryInput {
-    width: 500px;
+    width: 75%;
     height: 50px;
     border: 2px solid black;
     border-color: blue;
@@ -78,4 +78,32 @@ a, .btn-link {
 
 .textCenter {
     text-align: center;
+    padding-top:10px;
+}
+.divCenter {
+    
+    margin: 0 auto;
+    display: block;
+}
+.buttonCenter {
+    margin: 0 auto;
+    display:block
+}
+
+button {
+    background: #6495ED;
+    color: white;
+    font-size:20px;
+    padding: 10px 20px;
+    margin: 15px auto;
+    border: none;
+    width: 50%;
+    border-radius: 10px;
+    display: block;
+}
+
+#Solution{
+    text-align:center;
+    padding:20px;
+    color:darkcyan;
 }
