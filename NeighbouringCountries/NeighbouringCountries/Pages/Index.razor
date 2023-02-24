@@ -7,17 +7,17 @@
 
 <input id="countryInput" @bind="ValidateCountry" @bind:event="oninput"  placeholder="Type Bordering Countrys here"/>
 <h2 class="textCenter">Remaining: @NeighbourCountriesRemainingCount </h2>
-<h3 class="textCenter">Guessed: </h3><h3 class="textCenter" style="color:green;">@CorrectGuesses</h3>
+<h3 class="textCenter">Guessed: <span class="textCenter" style="color:green;">@CorrectGuesses</span></h3>
 
-<button @onclick="CreateNewCountry">New Country</button>
-<button @onclick="ShowSolution">Solution</button><br/>
+    <button class="buttonCenter" @onclick="CreateNewCountry">New Country</button><br/>
+    <button class="buttonCenter" @onclick="ShowSolution">Solution</button>
 <h3 id="Solution">@BorderingCountriesSolution</h3>
 
 
 @code {
     //Inputbox
     private string? PlayerInputString { get; set; }
-    private string? BorderingCountriesSolution;
+    private string? BorderingCountriesSolution = " ";
 
     //List of all Countrys and their Neighbours
     private static AllCountrysList allCountryList = new AllCountrysList();
@@ -31,7 +31,7 @@
     private static List<string> NeighbourCountriesRemaining;
     private static int NeighbourCountriesRemainingCount;
 
-    private static string CorrectGuesses = String.Empty;
+    private static string CorrectGuesses = "";
 
     // Called when Page is loaded
     protected override async Task OnInitializedAsync()
@@ -73,7 +73,7 @@
 
     private void CreateNewCountry()
     {
-        BorderingCountriesSolution = String.Empty;
+        BorderingCountriesSolution = " ";
         //Make sure that the same Country is not chosen twice in a row
         rnd = new Random();
         int newRandomNumber = rnd.Next(allCountryList.countryBordersGerman.Count);
@@ -93,7 +93,7 @@
         GivenCountry = new Country(allCountryList.countryBordersGerman.ElementAt(randomNumber).Key, allCountryList.countryBordersGerman.ElementAt(randomNumber).Value);
         NeighbourCountriesRemaining = copy.Value;
         NeighbourCountriesRemainingCount = NeighbourCountriesRemaining.Count;
-        CorrectGuesses = String.Empty;
+        CorrectGuesses = "";
     }
 
     private void ShowSolution()
