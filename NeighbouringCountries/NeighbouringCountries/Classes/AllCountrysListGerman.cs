@@ -1,4 +1,4 @@
-﻿public class AllCountrysList
+﻿public class AllCountrysListGerman
 {
 
     public Dictionary<string, List<string>> countryBordersGerman = new Dictionary<string, List<string>>()
@@ -99,7 +99,6 @@
 
         // Nordamerika
 
-        { "Antigua und Barbuda", new List<string>() { "St. Kitts und Nevis" } },
         { "Belize", new List<string>() { "Mexiko", "Guatemala" } },
         { "Costa Rica", new List<string>() { "Nicaragua", "Panama" } },
         { "Dominikanische Republik", new List<string>() { "Haiti" } },
@@ -111,7 +110,6 @@
         { "Mexiko", new List<string>() { "USA", "Belize", "Guatemala" } },
         { "Nicaragua", new List<string>() { "Costa Rica", "Honduras" } },
         { "Panama", new List<string>() { "Costa Rica" } },
-        { "St. Kitts und Nevis", new List<string>() { "Antigua und Barbuda" } },
 
         // Südamerika
 
@@ -178,7 +176,6 @@
         { "Uganda", new List<string>() { "Südsudan", "Kenia", "Tansania", "Ruanda", "Kongo" } },
         { "Zentralafrikanische Republik", new List<string>() { "Tschad", "Sudan", "Südsudan", "Kongo (Demokratische Republik)", "Kamerun", "Kongo" } },
 
-        
     };
 
 

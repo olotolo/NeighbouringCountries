@@ -11,7 +11,8 @@
 
     <button class="buttonCenter" @onclick="CreateNewCountry">New Country</button><br/>
     <button class="buttonCenter" @onclick="ShowSolution">Solution</button>
-<h3 id="Solution">@BorderingCountriesSolution</h3>
+    <h3 id="Solution">@SolutionCountries</h3>
+
 
 
 @code {
@@ -20,7 +21,7 @@
     private string? BorderingCountriesSolution = " ";
 
     //List of all Countrys and their Neighbours
-    private static AllCountrysList allCountryList = new AllCountrysList();
+    private static AllCountrysListGerman allCountryList = new AllCountrysListGerman();
 
 
 
@@ -74,7 +75,7 @@
     private void CreateNewCountry()
     {
         CorrectGuesses = String.Empty;
-        BorderingCountriesSolution = "";
+        SolutionCountries = null;
         //Make sure that the same Country is not chosen twice in a row
         rnd = new Random();
         int newRandomNumber = rnd.Next(allCountryList.countryBordersGerman.Count);
@@ -94,11 +95,34 @@
 
     private void ShowSolution()
     {
-        BorderingCountriesSolution = "";
-        for(int i = 0; i < GivenCountry.NeighbouringCountries.Count; i++)
+        ShowAnswers();
+    }
+    RenderFragment? SolutionCountries;
+    private RenderFragment ShowAnswers()
+    {
+        SolutionCountries = null;
+        bool used = false;
+        foreach(string s in GivenCountry.NeighbouringCountries)
         {
-            BorderingCountriesSolution += GivenCountry.NeighbouringCountries[i] + ", ";
+            used = false;
+            foreach(string n in NeighbourCountriesRemaining)
+            {
+                if(s == n)
+                {
+                    SolutionCountries += 
+    @<span style="color:red;">@s, </span>;
+                    used = true;
+                    break;
+                }
+                
+            }
+            if(used == false)
+            {
+                    SolutionCountries += @<span style="color:green;">@s, </span>;
+            }
         }
+        return SolutionCountries;
+
     }
 
 }
