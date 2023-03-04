@@ -20,7 +20,7 @@
         { "Frankreich", new List<string>{"Belgien", "Luxemburg", "Deutschland", "Schweiz", "Italien", "Spanien", "Andorra", "Monaco"}},
         { "Deutschland", new List<string>{"Dänemark", "Polen", "Tschechien", "Österreich", "Schweiz", "Frankreich", "Niederlande", "Belgien", "Luxemburg"}},
         { "Griechenland", new List<string>{"Albanien", "Mazedonien", "Bulgarien", "Türkei"}},
-        { "Ungarn", new List<string>{"Österreich", "Slowakei", "Ukraine", "Rumänien", "Serbien", "Kroatien", "Serbien"}},
+        { "Ungarn", new List<string>{"Österreich", "Slowakei", "Ukraine", "Rumänien", "Slowenien", "Kroatien", "Serbien"}},
         { "Irland", new List<string>{"Vereinigtes Königreich"}},
         { "Italien", new List<string>{"Schweiz", "Österreich", "Slowenien", "Frankreich", "Vatikanstadt", "San Marino"}},
         { "Kosovo", new List<string>{"Albanien", "Montenegro", "Serbien", "Mazedonien"}},
@@ -49,7 +49,6 @@
         { "Vatikanstadt", new List<string>{"Italien"}},
         { "Vereinigtes Königreich", new List<string>{"Irland"}},
         { "Belarus", new List<string>{"Polen", "Litauen", "Lettland", "Russland", "Ukraine"}},
-        { "Königreich", new List<string>{"Belgien", "Dänemark", "Deutschland", "Frankreich", "Gibraltar", "Irland", "Italien", "Luxemburg", "Niederlande", "Portugal", "Spanien", "Schweden"}},
         { "Türkei", new List<string>{"Bulgarien", "Griechenland", "Armenien", "Aserbaidschan", "Georgien", "Irak", "Iran", "Syrien"}},
 
         //Asia
@@ -65,7 +64,6 @@
         { "Irak", new List<string>{"Iran", "Jordanien", "Kuwait", "Saudi-Arabien", "Syrien", "Türkei"}},
         { "Iran", new List<string>{"Afghanistan", "Armenien", "Aserbaidschan", "Irak", "Pakistan", "Türkei", "Turkmenistan"}},
         { "Israel", new List<string>{"Ägypten", "Jordanien", "Libanon", "Syrien"}},
-        { "Japan", new List<string>{"China", "Nordkorea", "Südkorea", "Russland"}},
         { "Jemen", new List<string>{"Saudi-Arabien", "Oman"}},
         { "Jordanien", new List<string>{"Irak", "Israel", "Saudi-Arabien", "Syrien"}},
         { "Kambodscha", new List<string>{"Laos", "Thailand", "Vietnam"}},
@@ -128,9 +126,9 @@
 
         // Afrika
         
-        { "Ägypten", new List<string>() { "Libyen", "Sudan", "Israel", "Gaza-Streifen" } },
+        { "Ägypten", new List<string>() { "Libyen", "Sudan", "Israel" } },
         { "Äquatorialguinea", new List<string>() { "Kamerun", "Gabun" } },
-        { "Äthiopien", new List<string>() { "Eritrea", "Dschibuti", "Somalia", "Kenia", "Südsudan" } },
+        { "Äthiopien", new List<string>() { "Eritrea", "Dschibuti", "Somalia", "Kenia", "Südsudan", "" } },
         { "Algerien", new List<string>() { "Tunesien", "Libyen", "Niger", "Mali", "Mauretanien", "Westsahara", "Marokko" } },
         { "Angola", new List<string>() { "Namibia", "Sambia", "Kongo", "Demokratische Republik Kongo" } },
         { "Benin", new List<string>() { "Niger", "Burkina Faso", "Togo", "Nigeria" } },
@@ -157,24 +155,24 @@
         { "Marokko", new List<string>() { "Algerien", "Westsahara" } },
         { "Mauretanien", new List<string>() { "Westsahara", "Marokko", "Algerien", "Mali, Senegal" } },
         { "Mosambik", new List<string>() { "Tansania", "Malawi", "Sambia", "Simbabwe", "Südafrika, Swasiland" } },
-        { "Namibia", new List<string>() { "Angola", "Sambia", "Botswana, Südafrika" } },
+        { "Namibia", new List<string>() { "Angola", "Sambia", "Botswana", "Südafrika" } },
         { "Niger", new List<string>() { "Algerien", "Libyen", "Tschad", "Nigeria", "Benin", "Burkina Faso", "Mali" } },
         { "Nigeria", new List<string>() { "Niger", "Tschad", "Kamerun", "Benin" } },
         { "Ruanda", new List<string>() { "Uganda", "Tansania", "Burundi", "Kongo" } },
         { "Sambia", new List<string>() { "Demokratische Republik Kongo", "Tansania", "Malawi", "Mosambik, Simbabwe, Botswana, Namibia" } },
         { "Senegal", new List<string>() { "Mauretanien", "Mali", "Guinea", "Guinea-Bissau", "Gambia" } },
         { "Sierra Leone", new List<string>() { "Guinea", "Liberia" } },
-        { "Simbabwe", new List<string>() { "Sambia", "Mosambik", "Südafrika, Botswana, Namibia" } },
+        { "Simbabwe", new List<string>() { "Sambia", "Mosambik", "Südafrika", "Botswana", "Namibia" } },
         { "Somalia", new List<string>() { "Dschibuti", "Äthiopien", "Kenia" } },
         { "Südafrika", new List<string>() { "Namibia", "Botswana", "Simbabwe", "Mosambik", "Eswatini", "Lesotho" } },
-        { "Südsudan", new List<string>() { "Kongo (Demokratische Republik)", "Zentralafrikanische Republik", "Uganda", "Kenia", "Äthiopien", "Sudan" } },
-        { "Sudan", new List<string>() { "Ägypten", "Libyen", "Tschad, Zentralafrikanische Republik, Südsudan, Äthiopien, Eritrea" } },
+        { "Südsudan", new List<string>() { "Demokratische Republik Kongo", "Zentralafrikanische Republik", "Uganda", "Kenia", "Äthiopien", "Sudan" } },
+        { "Sudan", new List<string>() { "Ägypten", "Libyen", "Tschad"," Zentralafrikanische Republik", "Südsudan", "Äthiopien", "Eritrea" } },
         { "Tansania", new List<string>() { "Kenia", "Uganda", "Ruanda", "Burundi", "Kongo", "Sambia", "Mosambik" } },
         { "Togo", new List<string>() { "Burkina Faso", "Ghana", "Benin" } },
         { "Tschad", new List<string>() { "Libyen", "Niger", "Nigeria", "Kamerun, Zentralafrikanische Republik, Sudan" } },
         { "Tunesien", new List<string>() { "Algerien", "Libyen" } },
         { "Uganda", new List<string>() { "Südsudan", "Kenia", "Tansania", "Ruanda", "Kongo" } },
-        { "Zentralafrikanische Republik", new List<string>() { "Tschad", "Sudan", "Südsudan", "Kongo (Demokratische Republik)", "Kamerun", "Kongo" } },
+        { "Zentralafrikanische Republik", new List<string>() { "Tschad", "Sudan", "Südsudan", "Demokratische Republik Kongo", "Kamerun", "Kongo" } },
 
     };
 

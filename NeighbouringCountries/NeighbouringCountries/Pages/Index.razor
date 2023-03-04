@@ -1,6 +1,6 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Country Guesser</PageTitle>
 
 <h1 class="textCenter">Country Guesser</h1><br/>
 <h2 class="textCenter">@GivenCountry.GivenCountry</h2>
@@ -9,9 +9,9 @@
 <h2 class="textCenter">Remaining: @NeighbourCountriesRemainingCount </h2>
 <h3 class="textCenter">Guessed: <span class="textCenter" style="color:green;">@CorrectGuesses</span></h3>
 
-    <button class="buttonCenter" @onclick="CreateNewCountry">New Country</button><br/>
-    <button class="buttonCenter" @onclick="ShowSolution">Solution</button>
-    <h3 id="Solution">@SolutionCountries</h3>
+<button class="buttonCenter" @onclick="CreateNewCountry">New Country</button><br/>
+<button class="buttonCenter" @onclick="ShowSolution">Solution</button>
+<h3 id="Solution">@SolutionCountries</h3>
 
 
 
@@ -51,12 +51,15 @@
         }
     }
 
+
     // Check if the Country is contained in the Neighbour list
     private void Check()
     {
+
         for (int i = 0; i < NeighbourCountriesRemaining.Count; i++)
         {
-            if(string.Equals(PlayerInputString, NeighbourCountriesRemaining[i], StringComparison.OrdinalIgnoreCase))
+            // Check if the neighbourcountrie is a substring of the playerinput.
+            if (PlayerInputString?.IndexOf(NeighbourCountriesRemaining[i], StringComparison.OrdinalIgnoreCase) != -1)
             {
                 CorrectGuesses = CorrectGuesses + NeighbourCountriesRemaining[i] + ", ";
                 PlayerInputString = String.Empty;
@@ -74,6 +77,7 @@
 
     private void CreateNewCountry()
     {
+        PlayerInputString = String.Empty;
         CorrectGuesses = String.Empty;
         SolutionCountries = null;
         //Make sure that the same Country is not chosen twice in a row
@@ -97,7 +101,9 @@
     {
         ShowAnswers();
     }
+
     RenderFragment? SolutionCountries;
+
     private RenderFragment ShowAnswers()
     {
         SolutionCountries = null;
@@ -109,16 +115,35 @@
             {
                 if(s == n)
                 {
-                    SolutionCountries += 
-    @<span style="color:red;">@s, </span>;
+                    if(n == NeighbourCountriesRemaining.Last())
+                    {
+                        SolutionCountries += 
+        @<span style="color:red;">@s </span>
+    ;
+                    } else
+                    {
+                       SolutionCountries += 
+         @<span style="color:red;">@s, </span>
+     ; 
+                    }
+
                     used = true;
                     break;
                 }
-                
+
             }
             if(used == false)
             {
-                    SolutionCountries += @<span style="color:green;">@s, </span>;
+                if(s == NeighbourCountriesRemaining.Last())
+                {
+                                    SolutionCountries += 
+    @<span style="color:green;">@s </span>;
+                } else
+                {
+                                    SolutionCountries += 
+    @<span style="color:green;">@s, </span>;
+                }
+
             }
         }
         return SolutionCountries;

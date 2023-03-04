@@ -1,0 +1,73 @@
+﻿@page "/flags"
+<h3>Flags</h3>
+
+
+
+@if (imageSource is not null)
+{
+    <p>
+        <img style="width: 300px; height:180px; margin: 0 auto; display:block" src="@imageSource" />
+    </p>
+
+}
+
+<input id="countryInput" @bind="ValidateCountry" @bind:event="oninput"  placeholder="Type Bordering Countrys here"/>
+
+<button @onclick="ShowImage">New Country</button>
+<button @onclick="ShowSolution">Show Solution</button>
+
+
+<p><span>@SolutionText</span></p>
+
+@code {
+    private string? imageSource;
+    private string? solution;
+    private string? userInputString;
+    RenderFragment? SolutionText;
+    Random rnd = new Random();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        ShowImage();
+    }
+
+    private string ValidateCountry
+    {
+        get { return userInputString; }
+        set
+        {
+            userInputString = value;
+            CheckIfGuessed();
+        }
+    }
+
+    private void CheckIfGuessed()
+    {
+        if(userInputString == solution)
+        {
+            userInputString = String.Empty;
+            ShowImage();
+        }
+    }
+
+    private void ShowImage()
+    {
+        SolutionText = null;
+        int number = rnd.Next(AllFlagsGerman.Count);
+        imageSource = $"css/Flags/flag{number}.png";
+        solution = AllFlagsGerman[number];
+    }
+
+    private void ShowSolution()
+    {
+        SolutionText += 
+    @<span>@solution</span>;
+    }
+
+    private List<string> AllFlagsGerman = new List<string>()
+    {
+        "Deutschland", "Norwegen"
+    };
+
+}
