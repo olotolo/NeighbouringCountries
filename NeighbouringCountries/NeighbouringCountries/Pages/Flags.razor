@@ -13,11 +13,11 @@
 
 <input id="countryInput" @bind="ValidateCountry" @bind:event="oninput"  placeholder="Type Bordering Countrys here"/>
 
-<button @onclick="ShowImage">New Country</button>
+<button @onclick="NewFlag">New Country</button>
 <button @onclick="ShowSolution">Show Solution</button>
 
+<h3 id="Solution">@SolutionText</h3>
 
-<p><span>@SolutionText</span></p>
 
 @code {
     private string? imageSource;
@@ -29,7 +29,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        ShowImage();
+        NewFlag();
     }
 
     private string ValidateCountry
@@ -44,30 +44,37 @@
 
     private void CheckIfGuessed()
     {
-        if(userInputString == solution)
+        if (userInputString?.IndexOf(solution, StringComparison.OrdinalIgnoreCase) != -1)
         {
             userInputString = String.Empty;
-            ShowImage();
+            NewFlag();
         }
+
+
     }
 
-    private void ShowImage()
+    private void NewFlag()
     {
+        userInputString = String.Empty;
         SolutionText = null;
         int number = rnd.Next(AllFlagsGerman.Count);
-        imageSource = $"css/Flags/flag{number}.png";
+        imageSource = $"css/Flags/{AllFlagsGerman[number]}.png";
         solution = AllFlagsGerman[number];
     }
 
     private void ShowSolution()
     {
+        SolutionText = null;
         SolutionText += 
     @<span>@solution</span>;
     }
 
     private List<string> AllFlagsGerman = new List<string>()
     {
-        "Deutschland", "Norwegen"
+        "Deutschland", "Norwegen", "Schweden", "Finnland", "Vereinigtes Königreich", "Albanien", "Andorra", "Belarus", "Belgien", "Bosnien und Herzegowina",
+        "Bulgarien", "Dänemark", "Estland", "Frankreich", "Griechenland", "Irland", "Italien", "Kosovo", "Kroatien", "Lettland", "Liechtenstein", "Litauen",
+        "Luxemburg", "Moldawien", "Monaco", "Montenegro", "Niederlande", "Nordmazedonien", "Österreich", "Polen", "Portugal", "Rumänien", "Russland",
+        "San Marino", "Schweiz", "Serbien", "Slowakei", "Slowenien", "Spanien", "Tschechien", "Türkei", "Ukraine", "Ungarn", "Vatikanstadt"
     };
 
 }
